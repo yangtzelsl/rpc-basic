@@ -1,0 +1,14 @@
+dubbo:
+  application:
+    name: first-dubbo-consumer
+  registry:
+    address: zookeeper://192.168.89.140:2181
+  provider:
+    loadbalance: random # 配置当前应用中所有的Provider的默认负载均衡策略。如果注解定义其他负载均衡策略，局部优先。
+  consumer:
+    loadbalance: roundrobin # 配置当前应用中所有的Consumer的默认负载均衡策略。
+    # 幂等性操作，可以配置>0。在非幂等性操作，配置为0。
+    # 设计服务的时候，一般，会读写分离。
+    retries: 2 # 重试次数，默认为2。Provider因网络问题，无响应，消费端自动重新请求。
+server:
+  port: 80

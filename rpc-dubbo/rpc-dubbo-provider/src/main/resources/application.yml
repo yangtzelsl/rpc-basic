@@ -1,0 +1,10 @@
+dubbo:
+  registry:
+    address: zookeeper://192.168.89.140:2181
+  application: # 定义一个服务的名称。如果多个启动的服务进程命名一致，自动组成集群。
+    name: first-dubbo-provider
+  protocol:
+    name: dubbo  # 协议，默认dubbo。 注意，两个配置的默认值是配套的。不要只为一个配置做新的赋值
+    port: 20880  # 端口，默认20880
+  provider:
+    payload: 83886080
