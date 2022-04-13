@@ -27,8 +27,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
         /*
 
-        //比如这里我们有一个非常耗时长的业务-> 异步执行 -> 提交该channel 对应的
-        //NIOEventLoop 的 taskQueue中,
+        //比如这里我们有一个非常耗时长的业务 -> 异步执行 -> 提交该channel 对应的 NIOEventLoop 的 taskQueue中,
 
         //解决方案1 用户程序自定义的普通任务
 
@@ -60,7 +59,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
             }
         });
 
-        //解决方案2 : 用户自定义定时任务 -》 该任务是提交到 scheduleTaskQueue中
+        //解决方案2 : 用户自定义定时任务 schedule() -> 该任务是提交到 scheduleTaskQueue中
 
         ctx.channel().eventLoop().schedule(new Runnable() {
             @Override
