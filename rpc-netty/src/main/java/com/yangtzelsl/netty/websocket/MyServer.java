@@ -1,6 +1,6 @@
 package com.yangtzelsl.netty.websocket;
 
-import com.atguigu.netty.heartbeat.MyServerHandler;
+import com.yangtzelsl.netty.heartbeat.MyServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

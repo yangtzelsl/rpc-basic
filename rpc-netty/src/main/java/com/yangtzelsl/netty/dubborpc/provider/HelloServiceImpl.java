@@ -1,6 +1,6 @@
 package com.yangtzelsl.netty.dubborpc.provider;
 
-import com.atguigu.netty.dubborpc.publicinterface.HelloService;
+import com.yangtzelsl.netty.dubborpc.publicinterface.HelloService;
 
 public class HelloServiceImpl implements HelloService{
 

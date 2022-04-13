@@ -12,7 +12,6 @@ public class GroupChatServer {
 
     private int port; //监听端口
 
-
     public GroupChatServer(int port) {
         this.port = port;
     }
