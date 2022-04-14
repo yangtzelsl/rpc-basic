@@ -24,6 +24,5 @@ public class TestServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast("MyTestHttpServerHandler", new TestHttpServerHandler());
 
         System.out.println("ok~~~~");
-
     }
 }

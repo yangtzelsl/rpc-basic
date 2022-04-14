@@ -11,7 +11,7 @@ import java.net.URI;
 
 /**
  * 说明
- * 1. SimpleChannelInboundHandler 是 ChannelInboundHandlerAdapter
+ * 1. SimpleChannelInboundHandler 是 ChannelInboundHandlerAdapter 的子类
  * 2. HttpObject 客户端和服务器端相互通讯的数据被封装成 HttpObject
  */
 public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObject> {
@@ -36,7 +36,8 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
 
             System.out.println("ctx 类型=" + ctx.getClass());
 
-            System.out.println("pipeline hashcode" + ctx.pipeline().hashCode() + " TestHttpServerHandler hash=" + this.hashCode());
+            // 此时不管是 浏览器重新刷新地址 关掉浏览器再次打开 都会产生新的hash，因为浏览器是链接一次就断开的
+            System.out.println("pipeline hashcode = " + ctx.pipeline().hashCode() + " TestHttpServerHandler hash = " + this.hashCode());
 
             System.out.println("msg 类型=" + msg.getClass());
             System.out.println("客户端地址" + ctx.channel().remoteAddress());
@@ -53,7 +54,7 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
 
             ByteBuf content = Unpooled.copiedBuffer("hello, 我是服务器", CharsetUtil.UTF_8);
 
-            //构造一个http的相应，即 httpresponse
+            //构造一个http的相应，即 http response
             FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK, content);
 
             response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/plain");

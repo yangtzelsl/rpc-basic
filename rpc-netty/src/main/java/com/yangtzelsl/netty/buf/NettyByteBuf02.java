@@ -19,6 +19,7 @@ public class NettyByteBuf02 {
             //将 content 转成字符串
             System.out.println(new String(content, Charset.forName("utf-8")));
 
+            // byteBuf=UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeHeapByteBuf(ridx: 0, widx: 12, cap: 36)
             System.out.println("byteBuf=" + byteBuf);
 
             System.out.println(byteBuf.arrayOffset()); // 0
@@ -27,7 +28,7 @@ public class NettyByteBuf02 {
             System.out.println(byteBuf.capacity()); // 36
 
             //System.out.println(byteBuf.readByte()); //
-            System.out.println(byteBuf.getByte(0)); // 104
+            System.out.println(byteBuf.getByte(0)); // 104 即 h 的ascii码
 
             int len = byteBuf.readableBytes(); //可读的字节数  12
             System.out.println("len=" + len);
@@ -37,13 +38,9 @@ public class NettyByteBuf02 {
                 System.out.println((char) byteBuf.getByte(i));
             }
 
-            //按照某个范围读取
+            //按照某个范围读取 从index开始，读len个
             System.out.println(byteBuf.getCharSequence(0, 4, Charset.forName("utf-8")));
             System.out.println(byteBuf.getCharSequence(4, 6, Charset.forName("utf-8")));
-
-
         }
-
-
     }
 }

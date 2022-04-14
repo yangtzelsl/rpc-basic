@@ -8,13 +8,16 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GroupChatServerHandler extends SimpleChannelInboundHandler<String> {
 
     //public static List<Channel> channels = new ArrayList<Channel>();
 
-    //使用一个hashmap 管理
-    //public static Map<String, Channel> channels = new HashMap<String,Channel>();
+    //使用一个hashMap 管理
+    public static Map<String, Channel> channels = new HashMap<String,Channel>();
+    //public static Map<String, Channel> channels2 = new HashMap<User,Channel>();
 
     //定义一个channle 组，管理所有的channel
     //GlobalEventExecutor.INSTANCE) 是全局的事件执行器，是一个单例
@@ -22,8 +25,12 @@ public class GroupChatServerHandler extends SimpleChannelInboundHandler<String> 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 
-    //handlerAdded 表示连接建立，一旦连接，第一个被执行
-    //将当前channel 加入到  channelGroup
+    /**
+     * 表示连接建立，一旦连接，第一个被执行
+     * 将当前channel 加入到  channelGroup
+     * @param ctx
+     * @throws Exception
+     */
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.channel();
@@ -35,33 +42,51 @@ public class GroupChatServerHandler extends SimpleChannelInboundHandler<String> 
         channelGroup.writeAndFlush("[客户端]" + channel.remoteAddress() + " 加入聊天" + sdf.format(new java.util.Date()) + " \n");
         channelGroup.add(channel);
 
+        // channels.put(new User(100, "123"),channel);
     }
 
-    //断开连接, 将xx客户离开信息推送给当前在线的客户
+    /**
+     * 断开连接, 将xx客户离开信息推送给当前在线的客户
+     * @param ctx
+     * @throws Exception
+     */
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
 
         Channel channel = ctx.channel();
         channelGroup.writeAndFlush("[客户端]" + channel.remoteAddress() + " 离开了\n");
-        System.out.println("channelGroup size" + channelGroup.size());
+        System.out.println("channelGroup size = " + channelGroup.size());
 
     }
 
-    //表示channel 处于活动状态, 提示 xx上线
+    /**
+     * 表示channel 处于活动状态, 提示 xx上线
+     * @param ctx
+     * @throws Exception
+     */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
 
         System.out.println(ctx.channel().remoteAddress() + " 上线了~");
     }
 
-    //表示channel 处于不活动状态, 提示 xx离线了
+    /**
+     * 表示channel 处于不活动状态, 提示 xx离线了
+     * @param ctx
+     * @throws Exception
+     */
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 
         System.out.println(ctx.channel().remoteAddress() + " 离线了~");
     }
 
-    //读取数据
+    /**
+     * 读取数据
+     * @param ctx
+     * @param msg
+     * @throws Exception
+     */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
 
