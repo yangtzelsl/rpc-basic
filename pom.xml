@@ -17,6 +17,7 @@
         <module>rpc-framework-core</module>
         <module>rpc-dubbo</module>
         <module>rpc-jdk-dynamic-proxy</module>
+        <module>rpc-jdk-reflect</module>
     </modules>
 
     <properties>
